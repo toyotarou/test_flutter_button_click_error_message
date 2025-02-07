@@ -37,25 +37,31 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Multiple Buttons Error Sample'),
       ),
       body: Center(
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // ボタン1
-            ElevatedButton(
-              key: _buttonKey1,
-              onPressed: () {
-                showButtonErrorOverlay(context: context, buttonKey: _buttonKey1, message: 'ボタン1でエラー');
-              },
-              child: const Text('ボタン1'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                key: _buttonKey1,
+                onPressed: () {
+                  showButtonErrorOverlay(context: context, buttonKey: _buttonKey1, message: 'ボタン1でエラー');
+                },
+                child: const Text('ボタン1'),
+              ),
             ),
-            const SizedBox(height: 32),
+
             // ボタン2
-            ElevatedButton(
-              key: _buttonKey2,
-              onPressed: () {
-                showButtonErrorOverlay(context: context, buttonKey: _buttonKey2, message: 'ボタン2でエラー');
-              },
-              child: const Text('ボタン2'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                key: _buttonKey2,
+                onPressed: () {
+                  showButtonErrorOverlay(context: context, buttonKey: _buttonKey2, message: 'ボタン2でエラー');
+                },
+                child: const Text('ボタン2'),
+              ),
             ),
           ],
         ),

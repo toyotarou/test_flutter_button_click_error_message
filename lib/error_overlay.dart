@@ -24,42 +24,31 @@ void showButtonErrorOverlay({
   }
 
   final Offset buttonOffset = renderBox.localToGlobal(Offset.zero);
-  final Size buttonSize = renderBox.size;
+  // final Size buttonSize = renderBox.size;
+  //
+  //
+  //
 
   // フェードアニメーション用のAnimationControllerを動的に作成
-  final AnimationController controller = AnimationController(
-    vsync: Navigator.of(context), // or 'TickerProviderStateMixin'を持つStateクラス
-    duration: fadeDuration,
-  );
-  final CurvedAnimation fadeAnimation = CurvedAnimation(
-    parent: controller,
-    curve: Curves.easeInOut,
-  );
+  final AnimationController animationController =
+      AnimationController(vsync: Navigator.of(context), duration: fadeDuration);
+
+  final CurvedAnimation curvedAnimation = CurvedAnimation(parent: animationController, curve: Curves.easeInOut);
 
   late OverlayEntry overlayEntry;
+
   overlayEntry = OverlayEntry(
     builder: (BuildContext context) {
       return Positioned(
-        // ボタンを基準に、少し上に表示
-        // （中央揃えにしたければwidth計算などを調整）
-        left: buttonOffset.dx + (buttonSize.width / 2) - 70,
-        top: buttonOffset.dy - 40,
+        left: buttonOffset.dx,
+        top: buttonOffset.dy - 15,
         child: Material(
           color: Colors.transparent,
           child: FadeTransition(
-            opacity: fadeAnimation,
-            child: Container(
-              width: 140, // エラー表示の横幅を固定する例
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              decoration: BoxDecoration(
-                color: Colors.redAccent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                message,
-                style: const TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
+            opacity: curvedAnimation,
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -69,13 +58,13 @@ void showButtonErrorOverlay({
 
   // Overlayに挿入 → フェードイン
   overlayState.insert(overlayEntry);
-  controller.forward();
+  animationController.forward();
 
   // 一定時間表示 → フェードアウト → entry を除去
   // ignore: always_specify_types
   Future.delayed(displayDuration, () async {
-    await controller.reverse();
+    await animationController.reverse();
     overlayEntry.remove();
-    controller.dispose();
+    animationController.dispose();
   });
 }
