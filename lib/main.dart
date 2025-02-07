@@ -40,27 +40,30 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // ボタン1
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                key: _buttonKey1,
+            Container(
+              key: _buttonKey1,
+              width: 60,
+              height: 60,
+              margin: const EdgeInsets.all(5),
+              decoration: BoxDecoration(color: Colors.black.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
+              child: IconButton(
                 onPressed: () {
                   showButtonErrorOverlay(context: context, buttonKey: _buttonKey1, message: 'ボタン1でエラー');
                 },
-                child: const Text('ボタン1'),
+                icon: const Icon(Icons.ac_unit, color: Colors.white),
               ),
             ),
-
-            // ボタン2
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                key: _buttonKey2,
+            Container(
+              key: _buttonKey2,
+              width: 60,
+              height: 60,
+              margin: const EdgeInsets.all(5),
+              decoration: BoxDecoration(color: Colors.black.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
+              child: IconButton(
                 onPressed: () {
                   showButtonErrorOverlay(context: context, buttonKey: _buttonKey2, message: 'ボタン2でエラー');
                 },
-                child: const Text('ボタン2'),
+                icon: const Icon(Icons.ac_unit, color: Colors.white),
               ),
             ),
           ],
